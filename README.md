@@ -20,7 +20,6 @@ Project contains examples of different types of algorithms used in computer scie
 
 ## Description
 [1] 
-
 [2] 
 ...
 [11]

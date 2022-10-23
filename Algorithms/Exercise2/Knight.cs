@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,8 +14,8 @@ namespace Algorithms.Exercise2
         private int[,] chessBoard;
         private int[] a;
         private int[] b;
-
-
+        private bool q;
+        private Stopwatch watch = new Stopwatch();
 
 
         public Knight(int n)
@@ -22,48 +23,54 @@ namespace Algorithms.Exercise2
             size = n*n;
             this.n = n;
             chessBoard = new int[n, n];
-            chessBoard[1, 1] = 1;
-            a = new int[] { 2, 1, -1, -2, -2, -1, 1, 2 };
+            a = new int[] { 2, 1, -1, -2, -2, -1, 1, 2 }; 
             b = new int[] { 1, 2, 2, 1, -1, -2, -2, -1 };
-
         }
 
         public void PrintTour() 
         {
-            for (int l = 0; l < n; l++)
+            for (int i = 0; i < n; i++)
             {
-                for (int g = 0; g < n; g++)
-                    Console.Write(chessBoard[l, g]);
-                Console.WriteLine();
+                for (int j = 0; j < n; j++)
+                    Console.Write(chessBoard[i, j] + "  ");
+                Console.WriteLine("\n");
             }
         }
 
-        public void TryNextMove(int i, int x, int y, bool[] q) 
+        public void StartKnightTour()
         {
-            int u, v,k;
-            k = 0;
-            do
-            {
+            chessBoard[0, 0] = 1;
+            q = true;
+            TryNextMove(2, 0, 0,ref q);
+
+            if (q)
+                PrintTour();
+            else
+                Console.WriteLine("No solutions!");
+        }
+
+
+        public void TryNextMove(int i, int x, int y,ref bool q) // dlaczego to ma być tablica??
+        {
+             int u,v,k =0;
+             do
+             {
                 k = k + 1;
                 u = x + a[k];
                 v = y + b[k]; // przemieszczanie sie konika po planszy wektor a i b
-                if (((u >= 0) && (u < n)) && ((v >= 0) && (v < n)) && (chessBoard[u, v] == 0))
+
+                if (u >= 0 && u <= n && v >= 0 && v <= n && (chessBoard[u, v] == 0))
                 {
-                    chessBoard[u,v] = i; // postawienie konika szachowego na wybranym polu
+                    chessBoard[u, v] = i; // postawienie konika szachowego na wybranym polu
                     if (i < size)
                     {
-                        size--;
-                        TryNextMove( i++,  x,  y, q);
-                        if (!q[i])
-                        {
-                            chessBoard[u, v] = 0; // cofniecie ruchu konika szachowego 
-                            size++;
-                        }
+                        TryNextMove(i + 1, u, v,ref q);
+                        if (!q)
+                            chessBoard[u, v] = 0; // cofniecie ruchu konika szachowego                          
                     }
-                    else q[i] = true;
+                    else q = true;
                 }
-            } while (!q[i] && size > 0);
-
+             } while (!q && k < 8);
         }
     }
 }
