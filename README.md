@@ -12,6 +12,8 @@
 
 ## General Info
 Project contains examples of different types of algorithms used in computer science. Purpose of the project was to better understanding of basic algorithms and differrent data structures. 
+
+
 ## Tools
 * Visual Studio 2022
 
@@ -19,9 +21,11 @@ Project contains examples of different types of algorithms used in computer scie
 * .Net Core
 
 ## Description
-[1] 
-[2] 
-...
+[1] Permutation, Combination, Variation
+
+[2] N-Queen and Knight Tour 
+
+
 [11]
 
 

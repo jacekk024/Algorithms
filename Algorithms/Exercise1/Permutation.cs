@@ -16,12 +16,12 @@ namespace Algorithms.Exercise1
                 watch.Start();
                 Permute(data, timeUsed);
                 watch.Stop();            
-            } catch(Exception )
+            } 
+            catch(Exception )
             {
                 Console.WriteLine("Incorrect size of arrays!");
             }
         }
-
 
         public void ShowPermutationResult() 
         {
