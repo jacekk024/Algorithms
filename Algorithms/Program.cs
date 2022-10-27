@@ -31,7 +31,7 @@ namespace Algorithms
             }
 
             //Variation
-            if (true)
+            if (false)
             {
                 Exercise1.Variation<int> variation = new Exercise1.Variation<int>();
                 int[] data = { 1, 2, 3, 4};
@@ -40,7 +40,7 @@ namespace Algorithms
             }
 
             //Knight
-            if (false) 
+            if (true) 
             {
                 Exercise2.Knight knight = new Exercise2.Knight(5);
                 knight.StartKnightTour();

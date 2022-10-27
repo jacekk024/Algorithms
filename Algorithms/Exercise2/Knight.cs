@@ -40,7 +40,7 @@ namespace Algorithms.Exercise2
         public void StartKnightTour()
         {
             chessBoard[0, 0] = 1;
-            q = true;
+            q = false;
             TryNextMove(2, 0, 0,ref q);
 
             if (q)
@@ -52,25 +52,26 @@ namespace Algorithms.Exercise2
 
         public void TryNextMove(int i, int x, int y,ref bool q) // dlaczego to ma być tablica??
         {
-             int u,v,k =0;
-             do
-             {
-                k = k + 1;
+            int u, v;
+
+            for (int k = 0; k < 8 && !q; k++)
+            {               
                 u = x + a[k];
                 v = y + b[k]; // przemieszczanie sie konika po planszy wektor a i b
 
-                if (u >= 0 && u <= n && v >= 0 && v <= n && (chessBoard[u, v] == 0))
+                if ((u >= 0 && u < n) && (v >= 0 && v < n) && (chessBoard[u, v] == 0))
                 {
                     chessBoard[u, v] = i; // postawienie konika szachowego na wybranym polu
                     if (i < size)
                     {
-                        TryNextMove(i + 1, u, v,ref q);
+                        TryNextMove(i + 1, u, v, ref q);
                         if (!q)
-                            chessBoard[u, v] = 0; // cofniecie ruchu konika szachowego                          
+                            chessBoard[u, v] = 0; // cofniecie ruchu konika szachowego
                     }
                     else q = true;
                 }
-             } while (!q && k < 8);
+
+            }
         }
     }
 }
