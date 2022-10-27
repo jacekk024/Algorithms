@@ -14,7 +14,6 @@ namespace Algorithms.Exercise2
         private int[,] chessBoard;
         private int[] a;
         private int[] b;
-        private bool q;
         private Stopwatch watch = new Stopwatch();
 
 
@@ -35,13 +34,16 @@ namespace Algorithms.Exercise2
                     Console.Write(chessBoard[i, j] + "  ");
                 Console.WriteLine("\n");
             }
+            Console.WriteLine("Time elapsed: "+ watch.ElapsedMilliseconds + "ms");
         }
 
         public void StartKnightTour()
         {
             chessBoard[0, 0] = 1;
-            q = false;
+            bool q = false;
+            watch.Start();
             TryNextMove(2, 0, 0,ref q);
+            watch.Stop();
 
             if (q)
                 PrintTour();
@@ -70,7 +72,6 @@ namespace Algorithms.Exercise2
                     }
                     else q = true;
                 }
-
             }
         }
     }

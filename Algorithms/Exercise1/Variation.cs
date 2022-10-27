@@ -41,7 +41,7 @@ namespace Algorithms.Exercise1
 
         private void VariatonUntil(T[] data, int step,int k, int[] timeUsed) //tablicy timeUSed[]
         {
-            if (step >= k)
+            if (k == 0)
             {
                 allVariation.Add(new List<T>(variationList));
             }
@@ -56,17 +56,12 @@ namespace Algorithms.Exercise1
 
                     variationList.Add(data[i]);
 
-                    VariatonUntil(data, step + 1,k, timeUsed);
+                    VariatonUntil(data, step + 1,k-1, timeUsed);
 
                     timeUsed[i]++;
                     variationList.RemoveAt(variationList.Count - 1);
                 }
             }
         }
-
-
-
-
-
     }
 }

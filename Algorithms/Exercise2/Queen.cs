@@ -12,7 +12,6 @@ namespace Algorithms.Exercise2
         private Stopwatch watch = new Stopwatch();
         private int[,] chessBoard;
         private int N;
-
         private int[] x; // pozycja w i-tej kolumnie
         private bool[] a; //  brak hetmana w j−tym wierszu  
         private bool[] b; // brak hetmana na k−tej przekątnej
@@ -25,9 +24,7 @@ namespace Algorithms.Exercise2
         {
             this.N = N;
             chessBoard = new int[N, N];
-
             n = N - 1;
-
             x= new int[N];
             a= new bool[N]; 
             b= new bool[2*N-1];
@@ -62,45 +59,47 @@ namespace Algorithms.Exercise2
                     Console.Write(chessBoard[i, j] + "");
                 Console.WriteLine();
             }
+            Console.WriteLine("Time elapsed: "+ watch.ElapsedMilliseconds + "ms");
 
         }
 
         public void StartSetQueen()
         {
             bool q = false;
+            watch.Start();
             TryNQueen(0,ref q);
+            watch.Stop();
             PrintQueenPosition();
         }
 
 
         public void TryNQueen(int i,ref bool q) 
         {
-            int j = -1;
+             int j = -1;
 
-          //  j = -1;
-            do
-            {
-                j = j + 1; 
+             do
+             {
+                j = j + 1;
                 q = false;
-                 if (a[j] && b[i+j] && c[i-j + n])
-                 {
-                     x[i] = j;
-
-                     a[j] = false;
-                     b[i + j] = false;
-                     c[i-j + n] = false;
-                     if (i < n)
-                     {
-                        TryNQueen(i + 1,ref q);
-                         if (!q) {
+                if (a[j] && b[i + j] && c[i - j + n])
+                {
+                    x[i] = j;
+                    a[j] = false;
+                    b[i + j] = false;
+                    c[i - j + n] = false;
+                    if (i < n)
+                    {
+                        TryNQueen(i + 1, ref q);
+                        if (!q)
+                        {
                             a[j] = true;
-                            b[i+j] = true;
-                            c[i-j+n] = true;
-                         }
-                     } 
-                     else q = true;
-                 }
-            } while (!q && (j != n));
+                            b[i + j] = true;
+                            c[i - j + n] = true;
+                        }
+                    }
+                    else q = true;
+                }        
+             } while (!q && (j != n));
         }
     }
 }

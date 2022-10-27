@@ -41,19 +41,19 @@ namespace Algorithms.Exercise1
             }
         }
 
-        private void CombinationUntil(T[]data,int step, int k) //tablicy timeUSed[]
+        private void CombinationUntil(T[]data,int k, int step) //tablicy timeUSed[]
         {
-            if (step == 0)
+            if (k == 0)
             {
                 allCombination.Add(new List<T>(combinationList));
             }
             else
             {
-                for (int i = k; i < data.Length; i++)
+                for (int i = step; i < data.Length; i++)
                 {
                     combinationList.Add(data[i]);
 
-                    CombinationUntil(data, step - 1, i + 1);
+                    CombinationUntil(data, k - 1, i + 1);
 
                     combinationList.RemoveAt(combinationList.Count - 1);
                 }
