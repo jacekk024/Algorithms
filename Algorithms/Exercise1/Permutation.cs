@@ -15,7 +15,8 @@ namespace Algorithms.Exercise1
             {
                 watch.Start();
                 Permute(data, timeUsed);
-                watch.Stop();            
+                watch.Stop();
+                ShowPermutationResult();
             } 
             catch(Exception )
             {
@@ -23,7 +24,7 @@ namespace Algorithms.Exercise1
             }
         }
 
-        public void ShowPermutationResult() 
+        private void ShowPermutationResult() 
         {
             foreach (var permutation in allPermutation)
             {

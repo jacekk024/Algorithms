@@ -12,22 +12,21 @@ namespace Algorithms
             //Permutation
             if (false) 
             {
-                int[] data = { 1,2};
+                int[] data = { 1,2,3};
                 float[] data2 = { 3.1F, 1.4F, 4.1F }; 
                 string[] data3 = { "raz", "dwa", "trzy" };
 
-                int[] timeUsed = {1,1};
+                int[] timeUsed = {1,1,1};
                 Exercise1.Permutation<int> perm = new Permutation<int>();
                 perm.SetPermutationValues(data, timeUsed);
-                perm.ShowPermutationResult();
             }
 
             //Combination
             if (false) 
             {
                 Exercise1.Combination<int> comb = new Exercise1.Combination<int>();
-                int[] data = { 1, 2, 3, 4, 5 };
-                comb.SetCombinationValues(data,3);         
+                int[] data = { 1, 2, 3, 8};
+                comb.SetCombinationValues(data,2);         
             }
 
             //Variation
