@@ -13,7 +13,7 @@ namespace Algorithms.Exercise1
         private List<List<T>> allVariation = new List<List<T>>();
         private Stopwatch watch = new Stopwatch();
 
-        private void ShowCombinationResult()
+        private void ShowVariationResult()
         {
             foreach (var variation in allVariation)
             {
@@ -24,14 +24,18 @@ namespace Algorithms.Exercise1
             Console.WriteLine("Time elapsed: " + watch.ElapsedMilliseconds + "ms");
         }
 
-        public void SetVariationValues(T[] data,int k, int[] timeUsed)
+        public void SetVariationValues(T[] data,int k, int[] timeUsed,bool repetition)
         {
             try
             {
                 watch.Start();
-                VariatonUntil(data,0,k, timeUsed);
+                if(repetition)
+                    VariatonUntilWithRepetition(data,k);
+                else
+                    VariatonUntil(data, k, timeUsed);
+
                 watch.Stop();
-                ShowCombinationResult();
+                ShowVariationResult();
             }
             catch (Exception)
             {
@@ -39,7 +43,7 @@ namespace Algorithms.Exercise1
             }
         }
 
-        private void VariatonUntil(T[] data, int step,int k, int[] timeUsed) //tablicy timeUSed[]
+        private void VariatonUntilWithRepetition(T[] data, int k)
         {
             if (k == 0)
             {
@@ -47,7 +51,27 @@ namespace Algorithms.Exercise1
             }
             else
             {
-                for (int i = step; i < data.Length; i++)
+                for (int i = 0; i < data.Length; i++)
+                {
+
+                    variationList.Add(data[i]);
+
+                    VariatonUntilWithRepetition(data, k - 1);
+
+                    variationList.RemoveAt(variationList.Count - 1);
+                }
+            }
+        }
+
+        private void VariatonUntil(T[] data,int k, int[] timeUsed) 
+        {
+            if (k == 0)
+            {
+                allVariation.Add(new List<T>(variationList));
+            }
+            else
+            {
+                for (int i = 0; i < timeUsed.Length; i++)
                 {
                     if (timeUsed[i] == 0) // jesli nie mamy danej opcji to nie powtarzamy
                         continue;
@@ -56,7 +80,7 @@ namespace Algorithms.Exercise1
 
                     variationList.Add(data[i]);
 
-                    VariatonUntil(data, step + 1,k-1, timeUsed);
+                    VariatonUntil(data,k-1, timeUsed);
 
                     timeUsed[i]++;
                     variationList.RemoveAt(variationList.Count - 1);
