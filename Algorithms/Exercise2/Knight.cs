@@ -17,12 +17,9 @@ namespace Algorithms.Exercise2
         private Stopwatch watch = new Stopwatch();
 
 
-        public Knight(int n)
+        public Knight()
         {
-            size = n*n;
-            this.n = n;
-            chessBoard = new int[n, n];
-            a = new int[] { 2, 1, -1, -2, -2, -1, 1, 2 }; 
+            a = new int[] { 2, 1, -1, -2, -2, -1, 1, 2 };
             b = new int[] { 1, 2, 2, 1, -1, -2, -2, -1 };
         }
 
@@ -37,24 +34,53 @@ namespace Algorithms.Exercise2
             Console.WriteLine("Time elapsed: "+ watch.ElapsedMilliseconds + "ms");
         }
 
-        public void StartKnightTour()
+        public void PrintTourNoTime()
         {
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                    Console.Write(chessBoard[i, j] + "  ");
+                Console.WriteLine("\n");
+            }
+            Console.WriteLine("\n");
+
+        }
+
+        public void PrintTourTime() 
+        {
+            Console.WriteLine($"Time elapsed for n = {n} : {watch.ElapsedMilliseconds} ms");
+        }
+
+
+        public void StartKnightTour(int n,bool printTour)
+        {
+            size = n * n;
+            this.n = n;
+            chessBoard = new int[n, n];
+
             chessBoard[0, 0] = 1;
             bool q = false;
+
+
             watch.Start();
             TryNextMove(2, 0, 0,ref q);
             watch.Stop();
 
             if (q)
-                PrintTour();
+            {
+                PrintTourTime();
+                if (printTour)
+                    PrintTourNoTime();
+            }
             else
                 Console.WriteLine("No solutions!");
         }
 
 
-        public void TryNextMove(int i, int x, int y,ref bool q) // dlaczego to ma być tablica??
+        public void TryNextMove(int i , int x, int y,ref bool q)
         {
             int u, v;
+
 
             for (int k = 0; k < 8 && !q; k++)
             {               
@@ -70,7 +96,9 @@ namespace Algorithms.Exercise2
                         if (!q)
                             chessBoard[u, v] = 0; // cofniecie ruchu konika szachowego
                     }
-                    else q = true;
+                    else                 
+                        q = true;
+                                  
                 }
             }
         }

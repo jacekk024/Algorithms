@@ -25,10 +25,10 @@ namespace Algorithms.Exercise2
             this.N = N;
             chessBoard = new int[N, N];
             n = N - 1;
-            x= new int[N];
-            a= new bool[N]; 
-            b= new bool[2*N-1];
-            c= new bool[2 *N-1];
+            x= new int[N]; //pozycja hetmana w i-tej kolumnie
+            a= new bool[N]; // brak hetmana w j-tym wierszu
+            b= new bool[2*N-1]; // brak hetmana na k-tej przekatnej
+            c= new bool[2*N-1]; // brak hetmana na k-tej przekatnej
 
 
             for (int i = 0; i < N; i++)
@@ -51,12 +51,14 @@ namespace Algorithms.Exercise2
             for (int i = 0; i < N; i++)
                 Console.Write(x[i]+1 + " ");
             Console.WriteLine();
+            Console.WriteLine();
+
 
 
             for (int i = 0; i < N; i++)
             {
                 for (int j = 0; j < N; j++)
-                    Console.Write(chessBoard[i, j] + "");
+                    Console.Write(chessBoard[i, j] + " ");
                 Console.WriteLine();
             }
             Console.WriteLine("Time elapsed: "+ watch.ElapsedMilliseconds + "ms");
@@ -67,7 +69,7 @@ namespace Algorithms.Exercise2
         {
             bool q = false;
             watch.Start();
-            TryNQueen(0,ref q);
+            TryNQueen(1,ref q);
             watch.Stop();
             PrintQueenPosition();
         }
@@ -79,7 +81,7 @@ namespace Algorithms.Exercise2
 
              do
              {
-                j = j + 1;
+                j = j + 1; // zaczynamy od j =0 
                 q = false;
                 if (a[j] && b[i + j] && c[i - j + n])
                 {

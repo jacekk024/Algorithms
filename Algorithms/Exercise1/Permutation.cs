@@ -41,8 +41,8 @@ namespace Algorithms.Exercise1
             if (permutationResult.Count == timeUsed.Length) {
                 allPermutation.Add(new List<T>(permutationResult));
             }
-            else { 
-                
+            else 
+            { 
                 for(int i = 0; i < timeUsed.Length; i++) 
                 {
                     if (timeUsed[i] == 0) // jesli nie mamy danej opcji to nie powtarzamy
