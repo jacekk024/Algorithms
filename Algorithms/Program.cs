@@ -1,5 +1,6 @@
 ﻿using Algorithms.Exercise1;
 using Algorithms.Exercise2;
+using Algorithms.Exercise3;
 using System;
 
 
@@ -64,6 +65,15 @@ namespace Algorithms
                 //drukowanie czasu wszystkie rozwiazania 
             }
 
+
+            if (true)
+            {
+                WarnsdorfKnight warnsdorfKnight = new WarnsdorfKnight();
+
+                warnsdorfKnight.StartKnightTour(13);
+
+                //drukowanie czasu wszystkie rozwiazania 
+            }
 
 
         }   

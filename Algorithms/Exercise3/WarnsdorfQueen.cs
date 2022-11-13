@@ -9,5 +9,10 @@ namespace Algorithms.Exercise3
     internal class WarnsdorfQueen
     {
 
+
+
+
+
+
     }
 }
