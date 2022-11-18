@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Algorithms.Exercise2
+namespace Algorithms.Exercise3
 {
-    internal class Queen
+    internal class PolynominalQueen
     {
         private Stopwatch watch = new Stopwatch();
         private int[,] chessBoard;
@@ -19,28 +19,27 @@ namespace Algorithms.Exercise2
 
         private int n;
 
-
-        public Queen(int N) 
+        public PolynominalQueen(int N)
         {
             this.N = N;
             chessBoard = new int[N, N];
             n = N - 1;
-            x= new int[N]; //pozycja hetmana w i-tej kolumnie
-            a= new bool[N]; // brak hetmana w j-tym wierszu
-            b= new bool[2*N-1]; // brak hetmana na k-tej przekatnej
-            c= new bool[2*N-1]; // brak hetmana na k-tej przekatnej
-
+            x = new int[N]; //pozycja hetmana w i-tej kolumnie
+            a = new bool[N]; // brak hetmana w j-tym wierszu
+            b = new bool[2 * N - 1]; // brak hetmana na k-tej przekatnej
+            c = new bool[2 * N - 1]; // brak hetmana na k-tej przekatnej
 
             for (int i = 0; i < N; i++)
                 a[i] = true;
-            for (int j = 0; j < 2*N-1; j++) {
+            for (int j = 0; j < 2 * N - 1; j++)
+            {
                 b[j] = true;
                 c[j] = true;
             }
 
         }
 
-        void PrintQueenPosition() 
+        void PrintQueenPosition()
         {
 
             for (int i = 0, j = 1; i < N; j++, i++)
@@ -49,7 +48,7 @@ namespace Algorithms.Exercise2
             }
 
             for (int i = 0; i < N; i++)
-                Console.Write(x[i]+1 + " ");
+                Console.Write(x[i] + 1 + " ");
             Console.WriteLine();
             Console.WriteLine();
 
@@ -59,7 +58,7 @@ namespace Algorithms.Exercise2
                     Console.Write(chessBoard[i, j] + " ");
                 Console.WriteLine();
             }
-            Console.WriteLine("Time elapsed: "+ watch.ElapsedMilliseconds + "ms");
+            Console.WriteLine("Time elapsed: " + watch.ElapsedMilliseconds + "ms");
 
         }
 
@@ -67,18 +66,18 @@ namespace Algorithms.Exercise2
         {
             bool q = false;
             watch.Start();
-            TryNQueen(1,ref q);
+            TryNQueen(1, ref q);
             watch.Stop();
             PrintQueenPosition();
         }
 
 
-        public void TryNQueen(int i,ref bool q) 
+        public void TryNQueen(int i, ref bool q)
         {
-             int j = -1;
+            int j = -1;
 
-             do
-             {
+            do
+            {
                 j = j + 1; // zaczynamy od j =0 
                 q = false;
                 if (a[j] && b[i + j] && c[i - j + n])
@@ -98,8 +97,24 @@ namespace Algorithms.Exercise2
                         }
                     }
                     else q = true;
-                }        
-             } while (!q && (j != n));
+                }
+            } while (!q && (j != n));
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

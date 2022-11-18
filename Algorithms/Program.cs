@@ -1,5 +1,6 @@
 ﻿using Algorithms.Exercise1;
 using Algorithms.Exercise2;
+using Algorithms.Exercise3;
 using System;
 
 
@@ -51,21 +52,23 @@ namespace Algorithms
                 for(int i = 5; i <= n; i++) 
                 {
                     knight.StartKnightTour(i,false);
-                }
-
-                //skoczek z marginesem?
-                //drukowanie czasu dla kolejnych n + rozne rozmiary tablicy
+                }            
             }
             //NQueen
             if (false)
             {
                 Queen queen = new Queen(8);
                 queen.StartSetQueen();
-                //drukowanie czasu wszystkie rozwiazania 
             }
 
+            if (true)
+            {
+                WarnsdorfKnight warnsdorfKnight = new WarnsdorfKnight();
 
+                //wyswietlanie czasow dla algorytmu warnsdorffa + trasa
 
+                warnsdorfKnight.StartKnightTour(90);
+            }
         }   
     }   
 }
