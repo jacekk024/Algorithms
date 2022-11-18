@@ -52,30 +52,23 @@ namespace Algorithms
                 for(int i = 5; i <= n; i++) 
                 {
                     knight.StartKnightTour(i,false);
-                }
-
-                //skoczek z marginesem?
-                //drukowanie czasu dla kolejnych n + rozne rozmiary tablicy
+                }            
             }
             //NQueen
             if (false)
             {
                 Queen queen = new Queen(8);
                 queen.StartSetQueen();
-                //drukowanie czasu wszystkie rozwiazania 
             }
-
 
             if (true)
             {
                 WarnsdorfKnight warnsdorfKnight = new WarnsdorfKnight();
 
-                warnsdorfKnight.StartKnightTour(13);
+                //wyswietlanie czasow dla algorytmu warnsdorffa + trasa
 
-                //drukowanie czasu wszystkie rozwiazania 
+                warnsdorfKnight.StartKnightTour(90);
             }
-
-
         }   
     }   
 }
