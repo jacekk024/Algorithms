@@ -14,14 +14,12 @@ namespace Algorithms.Exercise4
 
         private List<KeyValye<Key,Value>> keys;
 
-
         public KeyValye(Key key, Value value) 
         {
             this.key = key;
             this.value = value;
         }
     }
-
 
     internal class HashTable<Key,Value,T>
     {
@@ -36,14 +34,13 @@ namespace Algorithms.Exercise4
         }
 
 
-        public int HashFunction(Value param) 
+        public int HashFunction(Value value) 
         {
                 // funckja otrzymuje typ generyczny dla którego oblicza hash
 
                 // moze być string, tablica int, lista, klasa..
 
-                return 1;
-            
+                return 1;          
         }
 
         int HashString(string input)
