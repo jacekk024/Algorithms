@@ -1,6 +1,7 @@
 ﻿using Algorithms.Exercise1;
 using Algorithms.Exercise2;
 using Algorithms.Exercise3;
+using Algorithms.Exercise5;
 using System;
 
 
@@ -61,13 +62,46 @@ namespace Algorithms
                 queen.StartSetQueen();
             }
 
-            if (true)
+            if (false)
             {
                 WarnsdorfKnight warnsdorfKnight = new WarnsdorfKnight();
 
-                //wyswietlanie czasow dla algorytmu warnsdorffa + trasa
-
                 warnsdorfKnight.StartKnightTour(90);
+            }
+
+
+            if (false)
+            {
+                HeuristicQueen heuristicQueen = new HeuristicQueen();
+                //wyswietlanie czasow dla algorytmu warnsdorffa + trasa
+                heuristicQueen.StartSetQueen(20, true);
+
+                for (int i = 50; i < 400; i += 50)
+                    heuristicQueen.StartSetQueen(i, false);
+            }
+
+            //Hash Table
+            if (false) 
+            {
+                string value = "Kon";
+                string[] value2 = {"matyla","edmund","marcin","walery" };
+                int[] value3 = { 1, 2200, 301, 109 };
+                double[] value4 = { 1.23, 1.44, 0.11, 0.0001 };
+
+            }
+
+
+            if (true) 
+            {
+                Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\graph3.txt");
+
+                graph.PrintGraph();
+
+                UnionFind kruskal = new UnionFind(graph);
+
+                kruskal.KruskalAlgorithm();
+                kruskal.PrintMST();
+
             }
         }   
     }   

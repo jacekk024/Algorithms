@@ -38,7 +38,8 @@ namespace Algorithms.Exercise1
         private void Permute(T[] data, int[] timeUsed) //tablicy timeUSed[]
         {
 
-            if (permutationResult.Count == timeUsed.Length) {
+            if (permutationResult.Count == timeUsed.Length) 
+            {
                 allPermutation.Add(new List<T>(permutationResult));
             }
             else 
