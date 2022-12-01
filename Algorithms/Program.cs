@@ -74,7 +74,7 @@ namespace Algorithms
             {
                 HeuristicQueen heuristicQueen = new HeuristicQueen();
                 //wyswietlanie czasow dla algorytmu warnsdorffa + trasa
-                heuristicQueen.StartSetQueen(20, true);
+                heuristicQueen.StartSetQueen(23, true);
 
                 for (int i = 50; i < 400; i += 50)
                     heuristicQueen.StartSetQueen(i, false);

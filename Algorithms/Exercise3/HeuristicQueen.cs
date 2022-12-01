@@ -102,13 +102,14 @@ namespace Algorithms.Exercise3
 
         private void QueenSearch() 
         {
-            int swapsPerformed = 0;
+            int swapsPerformed;
 
             while (CollisionNumber() != 0) // when there is no collisions stops 
             {
                 Permutation();
                 do
                 {
+                    swapsPerformed = 0;
                     for (int i = 0; i < N; i++)
                     {
                         for (int j = i + 1; j < N; j++)
@@ -123,7 +124,7 @@ namespace Algorithms.Exercise3
                             }
                         }
                     }
-                } while (swapsPerformed == 0);
+                } while (swapsPerformed != 0);
             }
         }
 
