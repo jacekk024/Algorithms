@@ -1,6 +1,7 @@
 ﻿using Algorithms.Exercise1;
 using Algorithms.Exercise2;
 using Algorithms.Exercise3;
+using Algorithms.Exercise4;
 using Algorithms.Exercise5;
 using System;
 
@@ -81,17 +82,26 @@ namespace Algorithms
             }
 
             //Hash Table
-            if (false) 
+            if (true) 
             {
-                string value = "Kon";
+                string value = "matyluyvdcyuvdscyda1111eubciuebciuebcuieb";
                 string[] value2 = {"matyla","edmund","marcin","walery" };
                 int[] value3 = { 1, 2200, 301, 109 };
                 double[] value4 = { 1.23, 1.44, 0.11, 0.0001 };
 
+
+                HashTable<int> hashTable = new HashTable<int>();
+
+
+                Console.WriteLine(hashTable.HashInt(17283));
+                Console.WriteLine(hashTable.hash.Length);
+                //hashTable.hash[hashTable.HashInt(17283)].Add(17283);
+                hashTable.HashInsert(17283);
+                Console.WriteLine($"Hash Search: {hashTable.HashSearch(17283)}");
             }
 
 
-            if (true) 
+            if (false) 
             {
                 Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\graph3.txt");
 
