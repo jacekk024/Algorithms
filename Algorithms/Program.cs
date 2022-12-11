@@ -83,59 +83,56 @@ namespace Algorithms
 
             //Hash Table
             if (true) 
-            {    
-                
-                string[] value2 = {"matylda","edmund","marcin","walery","grzegorz","ela","wacław","bartosz","czesław","witold","ewelina","martyna","roland","lucek","ludwig","Joahim","ZeoXi","LuaCin","Włochu" };
-                int[] value3 = { 1, 2200, 301, 109,1111,100,200301, 2014,10406,23431, 1235401,10234,11111,403011,4456677,1928941,192841899,2,4 };
-                string[] value = { "wojtus", "macius", "piekus", "rysiu", "stasiu" };
+            {
+                HashTable<double> hashTable3 = new HashTable<double>();
 
-                string[] value4 = { "leon", "leokadia", "max", "Franc", "vitali","vasyl","craig","ludmiła","unungung", "Aalborg", "Aarhus", "Adrian", "Alojz", "Akwitania", "Aksu","a" };
+
+
+                int[] array1 = { 1, 2200, 301, 109,1111,100,200301, 2014,10406,23431, 1235401,10234,11111,403011,4456677,1928941,192841899,2,4 };
+                int[] array2 = { 13, 31, 35, 9, 11, 100, 20301, 214, 1046, 2431, 135401, 1234, 111, 4311, 45677, 128941, 192841899, 20039, 4111 };
+                int[] array3 = { 19, 22009, 3019, 1099, 11119, 1009, 2003019, 20149, 104069, 23991, 123512591, 1023334, 11143, 405349851};
 
                 HashTable<int> hashTable = new HashTable<int>();
+
+
+                string[] value2 = {"matylda","edmund","marcin","walery","grzegorz","ela","wacław","bartosz","czesław","witold","ewelina","martyna","roland","lucek","ludwig","Joahim","ZeoXi","LuaCin","Włochu" };
+                string[] value = { "wojtus", "macius", "piekus", "rysiu", "stasiu" };
+                string[] value4 = { "leon", "leokadia", "max", "Franc", "vitali","vasyl","craig","ludmiła","unungung", "Aalborg", "Aarhus", "Adrian", "Alojz", "Akwitania", "Aksu","a" };
+
                 HashTable<string> hashTable1 = new HashTable<string>();
 
-
-                hashTable1.HashInsert(value2);
-                //Console.WriteLine($"Hash Search matylda: {hashTable1.HashSearch("matylda")}");
-    
-                hashTable1.PrintHashTable();
                 Console.WriteLine("==========================");
+                hashTable1.HashInsert(value2);
+                hashTable.HashInsert(array1);
 
+                //  hashTable1.PrintHashTable();
+                hashTable.PrintHashTable();
 
+                Console.WriteLine("==========================");
                 hashTable1.HashInsert(value);
+                hashTable.HashInsert(array2);
 
-                hashTable1.PrintHashTable();
-
+                //  hashTable1.PrintHashTable();
+                hashTable.PrintHashTable();
 
 
                 Console.WriteLine("==========================");
                 hashTable1.HashInsert(value4);
-                hashTable1.PrintHashTable();
+                hashTable.HashInsert(array3);
 
-                Console.WriteLine(hashTable1.N);
-                Console.WriteLine(hashTable1.M);
+                // hashTable1.PrintHashTable();
+                hashTable.PrintHashTable();
 
-                //   hashTable.HashInsert(value3);
-                //  Console.WriteLine($"Hash Search 2200: {hashTable.HashSearch(2200)}");
-                // hashTable.PrintHashTable();
-
-                // Console.WriteLine("Usuwanie elementu z tablicy: ");
-                //hashTable.HashDelete(2200);
-                //    Console.WriteLine($"Hash Search 2200: {hashTable.HashSearch(2200)}");
             }
 
 
             if (false) 
             {
                 Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\graph3.txt");
-
                 graph.PrintGraph();
-
                 UnionFind kruskal = new UnionFind(graph);
-
                 kruskal.KruskalAlgorithm();
                 kruskal.PrintMST();
-
             }
         }   
     }   

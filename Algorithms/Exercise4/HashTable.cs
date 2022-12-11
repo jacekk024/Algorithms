@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +14,12 @@ namespace Algorithms.Exercise4
     {
         public List<T>[] hash;         // tablica haszujaca
 
-
-
-        private readonly double alfa;   //
-
         private const int prime = 7919;
         private const int prime2 = 25229;
         private const int prime3 = 50423;
 
-        public int M;                  // poczatkowy rozmiar tablicy    
-        public int N;                  // całkowita liczba elementow
+        private int M;                  // poczatkowy rozmiar tablicy    
+        private int N;                  // całkowita liczba elementow
 
         public double ratio;
         public HashTable() 
@@ -32,7 +29,6 @@ namespace Algorithms.Exercise4
             hash = new List<T>[M];
             for (int i = 0; i < M; i++)
                 hash[i] = new List<T>();
-            alfa = (Math.Sqrt(5) - 1) / 2;  
         }
 
         public void PrintHashTable()
@@ -45,16 +41,15 @@ namespace Algorithms.Exercise4
                 Console.WriteLine();
             }         
         }
-
-        //Hash function for class
-        private int HashString(string array, int m)
+        
+        private int HashString(string val, int m)
         {
-            byte[] byteArray = Encoding.UTF8.GetBytes(array);
+            byte[] byteArray = Encoding.UTF8.GetBytes(val);
             ulong hashValue = 0;
             ulong pow = 1;
             ulong mod = (ulong)m;
 
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < val.Length; i++)
             {
                 hashValue = (uint)(hashValue + byteArray[i] * pow);
                 pow *= prime3;
@@ -64,37 +59,25 @@ namespace Algorithms.Exercise4
             return (int)hashValue;
         }
 
-        //to jeszcze poprawic na to z tutorialu
-        private int HashInt(int a)
+        //h(k) = floor (m * (k * c mod 1)) // Multiplication Method
+        private int HashInt(int val)
         {
-            uint b = (uint)a; 
+            double alfa =  (Math.Sqrt(5) - 1) / 2;
 
-            b -= (b << 6);
-            b ^= (b >> 17);
-            b -= (b << 9);
-            b ^= (b << 4);
-            b -= (b << 3);
-            b ^= (b << 10);
-            b ^= (b >> 15);
-            b = (uint)(b * alfa);
-            return (int)(b % M);
+            uint hashValue = (uint)Math.Floor(M * ((val * alfa) % 1));
+
+            return (int)(hashValue % M);
         }
-
-
 
         public int HashDouble(double a)
         {
-            int hashValue = 0;
+            int hashValue;
 
-            int k = (int)a;
+            hashValue = (int)(a * 1e9);
 
-            for (int i = 0; i < M; i++)
-                hashValue += HashInt(k) + i * HashInt(k);
-
-            hashValue = hashValue % M;
+            hashValue = HashInt(hashValue) % M;
             return hashValue;
         }
-
 
         public void HashInsert(T[] value)
         {           
@@ -124,7 +107,6 @@ namespace Algorithms.Exercise4
                 if (option)
                     hash[ind].Add(value);
 
-
                 if (hash[ind].Contains(value))
                     return ind; 
             }
@@ -152,13 +134,7 @@ namespace Algorithms.Exercise4
             else
             {
                 // szukanie obiektow
-
-
-
-
-
             }
-
             return -1;
         }
 
@@ -170,7 +146,6 @@ namespace Algorithms.Exercise4
             for (int i = 0; i < M; i++)
                 hashTemp[i] = new List<T>(hash[i]);
 
-
             if (ratio > 1.5) 
             {
                 M *= 2;
@@ -181,33 +156,8 @@ namespace Algorithms.Exercise4
                 for (int i = 0; i < hashTemp.Length; i++)
                     for(int j = 0; j < hashTemp[i].Count; j++)
                     {
-                        int ind;
-                        Type type = typeof(T);
-
-                        if (type == typeof(int))
-                        {
-                            ind = HashInt(Convert.ToInt32(hashTemp[i][j]));
-                            hash[ind].Add(hashTemp[i][j]);
-                        }
-                        else if (type == typeof(double))
-                        {
-                            ind = HashDouble(Convert.ToDouble(hashTemp[i][j]));
-
-                            hash[ind].Add(hashTemp[i][j]);
-
-                        }
-                        else if (type == typeof(string))
-                        {
-                            ind = HashString(hashTemp[i][j].ToString(), M);
-                            hash[ind].Add(hashTemp[i][j]);
-                        }
-                        else
-                        {
-                            //dodanie obiektow klas
-                            // nie jest obowiazkowe
-                        }
+                        Hash(hashTemp[i][j], true);
                     }
-
             }
             else if( ratio < 0.3) 
             {
@@ -220,103 +170,27 @@ namespace Algorithms.Exercise4
                 for (int i = 0; i < hashTemp.Length; i++)
                     for (int j = 0; j < hashTemp[i].Count; j++)
                     {
-                        int ind;
-                        Type type = typeof(T);
-
-                        if (type == typeof(int))
-                        {
-                            ind = HashInt(Convert.ToInt32(hashTemp[i][j]));
-                            hash[ind].Add(hashTemp[i][j]);
-                        }
-                        else if (type == typeof(double))
-                        {
-                            ind = HashDouble(Convert.ToDouble(hashTemp[i][j]));
-
-                            hash[ind].Add(hashTemp[i][j]);
-
-                        }
-                        else if (type == typeof(string))
-                        {
-                            ind = HashString(hashTemp[i][j].ToString(), M);
-                            hash[ind].Add(hashTemp[i][j]);
-                        }
-                        else
-                        {
-                            //dodanie obiektow klas
-                            // nie jest obowiazkowe
-                        }
-                    }               
+                        Hash(hashTemp[i][j], true);
+                    }
             }
         }
 
-
         public void HashInsert(T value)
         {
-
             ratio = N / (double)M;
-
 
             if (!CheckToResize())
             {
                 N++;
-                int ind;
-                Type type = typeof(T);
-
-                if (type == typeof(int))
-                {
-                    ind = HashInt(Convert.ToInt32(value));
-                    hash[ind].Add(value);
-                }
-                else if (type == typeof(double))
-                {
-                    ind = HashDouble(Convert.ToDouble(value));
-
-                    hash[ind].Add(value);
-
-                }
-                else if (type == typeof(string))
-                {
-                    ind = HashString(value.ToString(), M);
-                    hash[ind].Add(value);
-                }
-                else
-                {
-                    //dodanie obiektow klas
-                    // nie jest obowiazkowe
-                }
+                Hash(value, true);
             }
             else 
             {
                 ResizeTable();
                 N++;
-                int ind;
-                Type type = typeof(T);
-
-                if (type == typeof(int))
-                {
-                    ind = HashInt(Convert.ToInt32(value));
-                    hash[ind].Add(value);
-                }
-                else if (type == typeof(double))
-                {
-                    ind = HashDouble(Convert.ToDouble(value));
-
-                    hash[ind].Add(value);
-
-                }
-                else if (type == typeof(string))
-                {
-                    ind = HashString(value.ToString(), M);
-                    hash[ind].Add(value);
-                }
-                else
-                {
-                    //dodanie obiektow klas
-                    // nie jest obowiazkowe
-                }
+                Hash(value, true);
             }
         }
-    
 
         public void HashDelete(T value) 
         {
@@ -325,41 +199,11 @@ namespace Algorithms.Exercise4
 
             if (hash[ind].Contains(value)) 
                 hash[ind].Remove(value);
-
         }
 
         public int HashSearch(T value)
         {
-            Type type = typeof(T);
-            int ind;
-
-
-            if (type == typeof(int))
-            {
-                ind = HashInt(Convert.ToInt32(value));
-
-                if (hash[ind].Contains(value))
-                    return ind; 
-            }
-            if (type == typeof(double))
-            {
-
-                ind = HashDouble(Convert.ToDouble(value));
-
-                if (hash[ind].Contains(value))
-                    return ind;
-            }
-            if (type == typeof(string))
-            {
-                ind = HashString(value.ToString(), M);
-                if (hash[ind].Contains(value))
-                    return ind;
-            }
-            else 
-            {
-                // szukanie obiektow
-            }
-            return -1;
+            return Hash(value, false);
         }
     }
 }
