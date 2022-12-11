@@ -83,21 +83,45 @@ namespace Algorithms
 
             //Hash Table
             if (true) 
-            {
-                string value = "matyluyvdcyuvdscyda1111eubciuebciuebcuieb";
-                string[] value2 = {"matyla","edmund","marcin","walery" };
-                int[] value3 = { 1, 2200, 301, 109 };
-                double[] value4 = { 1.23, 1.44, 0.11, 0.0001 };
+            {    
+                
+                string[] value2 = {"matylda","edmund","marcin","walery","grzegorz","ela","wacław","bartosz","czesław","witold","ewelina","martyna","roland","lucek","ludwig","Joahim","ZeoXi","LuaCin","Włochu" };
+                int[] value3 = { 1, 2200, 301, 109,1111,100,200301, 2014,10406,23431, 1235401,10234,11111,403011,4456677,1928941,192841899,2,4 };
+                string[] value = { "wojtus", "macius", "piekus", "rysiu", "stasiu" };
 
+                string[] value4 = { "leon", "leokadia", "max", "Franc", "vitali","vasyl","craig","ludmiła","unungung", "Aalborg", "Aarhus", "Adrian", "Alojz", "Akwitania", "Aksu","a" };
 
                 HashTable<int> hashTable = new HashTable<int>();
+                HashTable<string> hashTable1 = new HashTable<string>();
 
 
-                Console.WriteLine(hashTable.HashInt(17283));
-                Console.WriteLine(hashTable.hash.Length);
-                //hashTable.hash[hashTable.HashInt(17283)].Add(17283);
-                hashTable.HashInsert(17283);
-                Console.WriteLine($"Hash Search: {hashTable.HashSearch(17283)}");
+                hashTable1.HashInsert(value2);
+                //Console.WriteLine($"Hash Search matylda: {hashTable1.HashSearch("matylda")}");
+    
+                hashTable1.PrintHashTable();
+                Console.WriteLine("==========================");
+
+
+                hashTable1.HashInsert(value);
+
+                hashTable1.PrintHashTable();
+
+
+
+                Console.WriteLine("==========================");
+                hashTable1.HashInsert(value4);
+                hashTable1.PrintHashTable();
+
+                Console.WriteLine(hashTable1.N);
+                Console.WriteLine(hashTable1.M);
+
+                //   hashTable.HashInsert(value3);
+                //  Console.WriteLine($"Hash Search 2200: {hashTable.HashSearch(2200)}");
+                // hashTable.PrintHashTable();
+
+                // Console.WriteLine("Usuwanie elementu z tablicy: ");
+                //hashTable.HashDelete(2200);
+                //    Console.WriteLine($"Hash Search 2200: {hashTable.HashSearch(2200)}");
             }
 
 
