@@ -3,6 +3,7 @@ using Algorithms.Exercise2;
 using Algorithms.Exercise3;
 using Algorithms.Exercise4;
 using Algorithms.Exercise5;
+using Algorithms.Exercise6;
 using System;
 
 
@@ -82,11 +83,15 @@ namespace Algorithms
             }
 
             //Hash Table
-            if (true) 
+            if (false) 
             {
-                HashTable<double> hashTable3 = new HashTable<double>();
+
+                double[] doubleArray1 = {1.23,1.9,9.88,1111.24,901.3,1.292,9.12435,8.123,92847.124,91.123,0.000134,1.000054,19.0001,8.91,10.0001,5.001 };
+                double[] doubleArray2 = { 0.22123, 112.549, 91.0018, 113.44414, 1901.39, 11.2292, 39.124335, 80.123, 99847.0124, 915.1123, 0.000134134, 1.000054123, 12319.0001, 824.951, 130.10001, 54.0501 };
+                double[] doubleArray3 = { 13.233, 1.39, 93.881, 11121.24, 9201.3, 1.2952, 93.1342435, 38.123, 9327847.1224, 931.1323, 0.30004134, 31.0400054, 149.00061, 8.951, 130.002301, 55.4001 };
 
 
+                HashTable<double> hashTable2 = new HashTable<double>();
 
                 int[] array1 = { 1, 2200, 301, 109,1111,100,200301, 2014,10406,23431, 1235401,10234,11111,403011,4456677,1928941,192841899,2,4 };
                 int[] array2 = { 13, 31, 35, 9, 11, 100, 20301, 214, 1046, 2431, 135401, 1234, 111, 4311, 45677, 128941, 192841899, 20039, 4111 };
@@ -104,28 +109,41 @@ namespace Algorithms
                 Console.WriteLine("==========================");
                 hashTable1.HashInsert(value2);
                 hashTable.HashInsert(array1);
+                hashTable2.HashInsert(doubleArray1);
 
-                //  hashTable1.PrintHashTable();
-                hashTable.PrintHashTable();
+
+                hashTable1.PrintHashTable();
+                //hashTable.PrintHashTable();
+                //hashTable2.PrintHashTable();
+
+               // string element = "matylda";
+
+               // Console.WriteLine($"{element} ind: {hashTable1.HashSearch(element)}");
+
 
                 Console.WriteLine("==========================");
                 hashTable1.HashInsert(value);
                 hashTable.HashInsert(array2);
+                hashTable2.HashInsert(doubleArray2);
 
-                //  hashTable1.PrintHashTable();
-                hashTable.PrintHashTable();
+
+                hashTable1.PrintHashTable();
+                //hashTable.PrintHashTable();
+                //hashTable2.PrintHashTable();
 
 
                 Console.WriteLine("==========================");
                 hashTable1.HashInsert(value4);
                 hashTable.HashInsert(array3);
+                hashTable2.HashInsert(doubleArray3);
 
-                // hashTable1.PrintHashTable();
-                hashTable.PrintHashTable();
 
+                hashTable1.PrintHashTable();
+                //hashTable.PrintHashTable();
+                //hashTable2.PrintHashTable();
             }
 
-
+            //Kruskal
             if (false) 
             {
                 Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\graph3.txt");
@@ -133,6 +151,64 @@ namespace Algorithms
                 UnionFind kruskal = new UnionFind(graph);
                 kruskal.KruskalAlgorithm();
                 kruskal.PrintMST();
+            }
+
+            //Tarjan
+            if (true) 
+            {
+
+                Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\tarjan2.txt");
+                graph.PrintGraph();
+
+                Console.WriteLine("Vertex neighbours list: ");
+                foreach (var node in graph.vertices)
+                    node.PrintNeighbours();
+
+              //  tarjan
+                //var tuple1 = new Tuple<int, int>(5, 4);
+                //var tuple2 = new Tuple<int, int>(6, 7);
+                //var tuple3 = new Tuple<int, int>(3, 9);
+                //var tuple4 = new Tuple<int, int>(6, 2);
+                //var tuple5 = new Tuple<int, int>(2, 10);
+
+                //var tuple6 = new Tuple<int, int>(1, 7);
+                //var tuple7 = new Tuple<int, int>(10, 8);
+
+                //var tuple8 = new Tuple<int, int>(6, 4);
+
+                //var tuple9 = new Tuple<int, int>(9, 4);//
+                //var tuple10 = new Tuple<int, int>(7, 9);
+
+
+
+                //tarjan2
+                var tuple1 = new Tuple<int, int>(1, 2);
+                var tuple2 = new Tuple<int, int>(3, 4);
+
+                var tuple3 = new Tuple<int, int>(2, 5);
+
+                var tuple4 = new Tuple<int, int>(8, 7);
+                var tuple5 = new Tuple<int, int>(2, 8);
+
+                List<Tuple<int,int>> list = new List<Tuple<int,int>>();
+
+
+                list.Add(tuple1);
+                list.Add(tuple2);
+                list.Add(tuple3);
+                list.Add(tuple4);
+                list.Add(tuple5);
+
+                //list.Add(tuple6);
+                //list.Add(tuple7);
+                //list.Add(tuple8);
+                //list.Add(tuple9);
+                //list.Add(tuple10);
+
+                Console.WriteLine();
+                Tarjan tarjan = new Tarjan(graph);
+                tarjan.FindNearestCommonAncestor(list);
+
             }
         }   
     }   

@@ -9,21 +9,28 @@ using System.Threading.Tasks;
 
 namespace Algorithms.Exercise6
 {
+
     internal class Tarjan
     {
 
-        private Graph graph;    // pobieramy graf;
+        private Graph graph;        // pobieramy graf;
 
-        private readonly int N; //licznosc zbioru / liczba wierzcholkow 
-        private int[] T;        // Niech T będzie tablicą i T[i] = reprezentant zbioru
+        private readonly int N;     // Licznosc zbioru / liczba wierzcholkow 
+        private int[] T;            // Niech T będzie tablicą i T[i] = reprezentant zbioru
+        private int[] ancestor;     // Tablica przodkow wierzcholka
+        private bool[] processed;    // Tablica wierzcholkow przetworzonych
 
-
+        List<Tuple<int, int>> list;
 
         public Tarjan(Graph graph)
         {
             this.graph = graph;
-            N = graph.nodes.Count;
-            T = Enumerable.Repeat(-1, N).ToArray();
+            N = graph.vertices.Count;
+
+            T = new int[N];
+            processed = new bool[N];
+            ancestor = new int[N];
+           
         }
 
 
@@ -64,21 +71,49 @@ namespace Algorithms.Exercise6
         }
 
 
-        public void TarjanAlg(int u) 
+
+
+        public void FindNearestCommonAncestor(List<Tuple<int, int>> list) 
         {
-            //MakeSet(u)
-            //u.ancestor = u;
-            //foreach v in u.children do
-            //        Tarjan(v);
-            //        Union(u, v);
-            //        Find(u).ancestor = u;
-            //u.color = black;
+            this.list = new List<Tuple<int, int>>(list);
+            Console.WriteLine(list.Count);
+            TarjanAlg(0);// zaczynasz od pierwszego wierzcholka w drzewie 
+        }
 
-            //foreach v such that hu, vi in P do
-            //    if v.color == black then
-            //            wynik += [(u, v) −> Find(v).ancestor];
+        private void MakeSet(int u) 
+        {
+            T[u] = -1; //ustawiamy wierzcholek jako reprezentanta    
+        }
 
-            //end
+        private void TarjanAlg(int u) 
+        {
+            MakeSet(u);
+
+            ancestor[u] = u; // 
+
+            //sasiedzi wierzcholka u
+            var vertices = graph.vertices.Find(x => x.number == u+1).neighbours;
+
+            //przechodzimy po sasiadach  wierzcholka u
+            foreach (var v in vertices)
+            {
+                //v jest od 1 do N dlatego daje v-1
+                TarjanAlg(v-1);
+                Union(u, v-1);
+                ancestor[Find(u)] = u;
+            }
+
+            processed[u] = true; // jesli nie ma juz sasiadow to oznaczamy ze przetworzony
+  
+            //sprawdzamy kolejnych par wierzcholkow czy wierzcholek jest na liscie zapytan
+            for (int i = 0; i < list.Count;i++) 
+            {
+                //jesli u rowny pierwszemu wierzcholkowi to sprawdzamy czy przeciwlegly przetworzony
+                if(u == list[i].Item1-1 && processed[list[i].Item2-1])
+                    Console.WriteLine($"Nearest Common Ancestor for {list[i].Item1} and {list[i].Item2}: {ancestor[Find(list[i].Item2-1)] + 1}");     
+                else if(u == list[i].Item2-1 && processed[list[i].Item1-1])
+                    Console.WriteLine($"Nearest Common Ancestor for {list[i].Item1} and {list[i].Item2}: {ancestor[Find(list[i].Item1-1)] + 1}");
+            }
         }
     }
 }

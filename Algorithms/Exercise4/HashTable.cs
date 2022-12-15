@@ -22,6 +22,9 @@ namespace Algorithms.Exercise4
         private int N;                  // całkowita liczba elementow
 
         public double ratio;
+        double alfa = (Math.Sqrt(5) - 1) / 2;
+
+
         public HashTable() 
         {
             M = 10;
@@ -33,6 +36,9 @@ namespace Algorithms.Exercise4
 
         public void PrintHashTable()
         {
+
+            Console.WriteLine($"Elements in array: {N} / {M}");
+
             for (int i = 0; i < hash.Length; i++)
             {
                 Console.Write($"{i}: ");
@@ -62,7 +68,6 @@ namespace Algorithms.Exercise4
         //h(k) = floor (m * (k * c mod 1)) // Multiplication Method
         private int HashInt(int val)
         {
-            double alfa =  (Math.Sqrt(5) - 1) / 2;
 
             uint hashValue = (uint)Math.Floor(M * ((val * alfa) % 1));
 
@@ -73,7 +78,7 @@ namespace Algorithms.Exercise4
         {
             int hashValue;
 
-            hashValue = (int)(a * 1e9);
+            hashValue = (int)(a*19);
 
             hashValue = HashInt(hashValue) % M;
             return hashValue;
@@ -88,7 +93,7 @@ namespace Algorithms.Exercise4
 
         private bool CheckToResize() 
         {
-            if ((ratio> 1.5 || ratio < 0.3) & N > 10)           
+            if ((ratio> 0.9 || ratio < 0.3) & N > 10)           
                 return true;  
             else
                 return false;
@@ -146,7 +151,7 @@ namespace Algorithms.Exercise4
             for (int i = 0; i < M; i++)
                 hashTemp[i] = new List<T>(hash[i]);
 
-            if (ratio > 1.5) 
+            if (ratio > 0.9) 
             {
                 M *= 2;
                 hash = new List<T>[M];
