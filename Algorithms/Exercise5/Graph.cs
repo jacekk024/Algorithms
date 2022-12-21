@@ -15,9 +15,13 @@ namespace Algorithms.Exercise5
 
         public List<Vertex> vertices = new List<Vertex>();  //lista  wierzcholka tarjan
 
+        public bool isDirected = true;
 
-
-        public Graph(string path) => readFile(path);
+        public Graph(string path, bool isDirected)
+        {
+            this.isDirected = isDirected;
+            readFile(path);
+        }
 
          
 
@@ -47,8 +51,15 @@ namespace Algorithms.Exercise5
             
             while ((s = sr.ReadLine()) != null)
             {
-                string[] subs = s.Split(' ');               
-                AddEdge(int.Parse(subs[0]),int.Parse(subs[1]), int.Parse(subs[2]));  
+                string[] subs = s.Split(' ');
+                if(isDirected)
+                    AddEdge(int.Parse(subs[0]),int.Parse(subs[1]), int.Parse(subs[2]));
+                else 
+                {
+                    AddEdge(int.Parse(subs[0]), int.Parse(subs[1]), int.Parse(subs[2]));
+                    AddEdge(int.Parse(subs[1]), int.Parse(subs[0]), int.Parse(subs[2]));
+
+                }
             }
             sr.Close();
             AddNodes();

@@ -4,6 +4,7 @@ using Algorithms.Exercise3;
 using Algorithms.Exercise4;
 using Algorithms.Exercise5;
 using Algorithms.Exercise6;
+using Algorithms.Exercise7;
 using System;
 
 
@@ -12,50 +13,54 @@ namespace Algorithms
 {
     class Test 
     {
-        static void Main(string[] args) {
+        static bool menuFlag = true;
+
+
+        static void Main(string[] args)
+        {
 
             //Permutation
-            if (false) 
+            if (false)
             {
-                int[] data = { 1,2,3};
-                float[] data2 = { 3.1F, 1.4F, 4.1F }; 
+                int[] data = { 1, 2, 3 };
+                float[] data2 = { 3.1F, 1.4F, 4.1F };
                 string[] data3 = { "raz", "dwa", "trzy" };
 
-                int[] timeUsed = {2,1,1};
+                int[] timeUsed = { 2, 1, 1 };
                 Permutation<int> perm = new Permutation<int>();
                 perm.SetPermutationValues(data, timeUsed);
             }
 
             //Combination
-            if (false) 
+            if (false)
             {
                 Combination<int> comb = new Combination<int>();
-                int[] data = {1, 2,3,4,5};
-                comb.SetCombinationValues(data,3);         
+                int[] data = { 1, 2, 3, 4, 5 };
+                comb.SetCombinationValues(data, 3);
             }
 
             //Variation
             if (false)
             {
                 Variation<int> variation = new Variation<int>();
-                int[] data = { 1, 2, 3};
-                int[] timeUsed = {1, 1,1};
-                variation.SetVariationValues(data,2, timeUsed,false);
+                int[] data = { 1, 2, 3 };
+                int[] timeUsed = { 1, 1, 1 };
+                variation.SetVariationValues(data, 2, timeUsed, false);
                 Console.WriteLine();
             }
 
             //Knight
-            if (false) 
+            if (false)
             {
                 int n = 9;
-                    
-                Knight knight = new Knight();
-                knight.StartKnightTour(6,true);
 
-                for(int i = 5; i <= n; i++) 
+                Knight knight = new Knight();
+                knight.StartKnightTour(6, true);
+
+                for (int i = 5; i <= n; i++)
                 {
-                    knight.StartKnightTour(i,false);
-                }            
+                    knight.StartKnightTour(i, false);
+                }
             }
             //NQueen
             if (false)
@@ -83,26 +88,26 @@ namespace Algorithms
             }
 
             //Hash Table
-            if (false) 
+            if (false)
             {
 
-                double[] doubleArray1 = {1.23,1.9,9.88,1111.24,901.3,1.292,9.12435,8.123,92847.124,91.123,0.000134,1.000054,19.0001,8.91,10.0001,5.001 };
+                double[] doubleArray1 = { 1.23, 1.9, 9.88, 1111.24, 901.3, 1.292, 9.12435, 8.123, 92847.124, 91.123, 0.000134, 1.000054, 19.0001, 8.91, 10.0001, 5.001 };
                 double[] doubleArray2 = { 0.22123, 112.549, 91.0018, 113.44414, 1901.39, 11.2292, 39.124335, 80.123, 99847.0124, 915.1123, 0.000134134, 1.000054123, 12319.0001, 824.951, 130.10001, 54.0501 };
                 double[] doubleArray3 = { 13.233, 1.39, 93.881, 11121.24, 9201.3, 1.2952, 93.1342435, 38.123, 9327847.1224, 931.1323, 0.30004134, 31.0400054, 149.00061, 8.951, 130.002301, 55.4001 };
 
 
                 HashTable<double> hashTable2 = new HashTable<double>();
 
-                int[] array1 = { 1, 2200, 301, 109,1111,100,200301, 2014,10406,23431, 1235401,10234,11111,403011,4456677,1928941,192841899,2,4 };
+                int[] array1 = { 1, 2200, 301, 109, 1111, 100, 200301, 2014, 10406, 23431, 1235401, 10234, 11111, 403011, 4456677, 1928941, 192841899, 2, 4 };
                 int[] array2 = { 13, 31, 35, 9, 11, 100, 20301, 214, 1046, 2431, 135401, 1234, 111, 4311, 45677, 128941, 192841899, 20039, 4111 };
-                int[] array3 = { 19, 22009, 3019, 1099, 11119, 1009, 2003019, 20149, 104069, 23991, 123512591, 1023334, 11143, 405349851};
+                int[] array3 = { 19, 22009, 3019, 1099, 11119, 1009, 2003019, 20149, 104069, 23991, 123512591, 1023334, 11143, 405349851 };
 
                 HashTable<int> hashTable = new HashTable<int>();
 
 
-                string[] value2 = {"matylda","edmund","marcin","walery","grzegorz","ela","wacław","bartosz","czesław","witold","ewelina","martyna","roland","lucek","ludwig","Joahim","ZeoXi","LuaCin","Włochu" };
+                string[] value2 = { "matylda", "edmund", "marcin", "walery", "grzegorz", "ela", "wacław", "bartosz", "czesław", "witold", "ewelina", "martyna", "roland", "lucek", "ludwig", "Joahim", "ZeoXi", "LuaCin", "Włochu" };
                 string[] value = { "wojtus", "macius", "piekus", "rysiu", "stasiu" };
-                string[] value4 = { "leon", "leokadia", "max", "Franc", "vitali","vasyl","craig","ludmiła","unungung", "Aalborg", "Aarhus", "Adrian", "Alojz", "Akwitania", "Aksu","a" };
+                string[] value4 = { "leon", "leokadia", "max", "Franc", "vitali", "vasyl", "craig", "ludmiła", "unungung", "Aalborg", "Aarhus", "Adrian", "Alojz", "Akwitania", "Aksu", "a" };
 
                 HashTable<string> hashTable1 = new HashTable<string>();
 
@@ -116,9 +121,9 @@ namespace Algorithms
                 //hashTable.PrintHashTable();
                 //hashTable2.PrintHashTable();
 
-               // string element = "matylda";
+                // string element = "matylda";
 
-               // Console.WriteLine($"{element} ind: {hashTable1.HashSearch(element)}");
+                // Console.WriteLine($"{element} ind: {hashTable1.HashSearch(element)}");
 
 
                 Console.WriteLine("==========================");
@@ -144,9 +149,9 @@ namespace Algorithms
             }
 
             //Kruskal
-            if (false) 
+            if (false)
             {
-                Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\graph3.txt");
+                Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\graph3.txt",true);
                 graph.PrintGraph();
                 UnionFind kruskal = new UnionFind(graph);
                 kruskal.KruskalAlgorithm();
@@ -154,17 +159,17 @@ namespace Algorithms
             }
 
             //Tarjan
-            if (true) 
+            if (false)
             {
 
-                Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\tarjan2.txt");
+                Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\tarjan2.txt",true);
                 graph.PrintGraph();
 
                 Console.WriteLine("Vertex neighbours list: ");
                 foreach (var node in graph.vertices)
                     node.PrintNeighbours();
 
-              //  tarjan
+                //  tarjan
                 //var tuple1 = new Tuple<int, int>(5, 4);
                 //var tuple2 = new Tuple<int, int>(6, 7);
                 //var tuple3 = new Tuple<int, int>(3, 9);
@@ -190,7 +195,7 @@ namespace Algorithms
                 var tuple4 = new Tuple<int, int>(8, 7);
                 var tuple5 = new Tuple<int, int>(2, 8);
 
-                List<Tuple<int,int>> list = new List<Tuple<int,int>>();
+                List<Tuple<int, int>> list = new List<Tuple<int, int>>();
 
 
                 list.Add(tuple1);
@@ -210,6 +215,34 @@ namespace Algorithms
                 tarjan.FindNearestCommonAncestor(list);
 
             }
-        }   
-    }   
+
+            //Bridges and articulation points  
+            if (true)
+            {
+                Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\bridges.txt",false);
+                //graph.PrintGraph();
+
+                Console.WriteLine("Vertex neighbours list: ");
+                foreach (var node in graph.vertices)
+                    node.PrintNeighbours();
+
+                BridgesAndArticulationPoints alg = new BridgesAndArticulationPoints(graph);
+                alg.FindBridges();
+
+                Graph graph2 = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\ArticulationPoints.txt",false);
+
+                //graph2.PrintGraph();
+
+                Console.WriteLine("Vertex neighbours list: ");
+                foreach (var node in graph2.vertices)
+                    node.PrintNeighbours();
+
+
+                BridgesAndArticulationPoints alg2 = new BridgesAndArticulationPoints(graph2);
+                alg2.FindArticulationPoints();
+
+
+            }
+        }
+    }
 }
