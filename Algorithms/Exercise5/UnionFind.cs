@@ -48,8 +48,9 @@ namespace Algorithms.Exercise5
                 }    
                 else
                 {                                   //if T[a] == T[b]
+                    int tmp = T[a];
                     T[a] = b;
-                    T[b]--;                   // to T[b] show the number of elements in set
+                    T[b] += tmp;                   // to T[b] show the number of elements in set
                 }         
             }
         }

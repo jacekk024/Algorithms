@@ -12,7 +12,18 @@ namespace Algorithms.Exercise5
 
         public List<Edge> edges = new List<Edge>();     //lista krawedzi
         public List<int> nodes = new List<int>();       //lista wierzcholkow
-        public Graph(string path) => readFile(path);
+
+        public List<Vertex> vertices = new List<Vertex>();  //lista  wierzcholka tarjan
+
+        public bool isDirected = true;
+
+        public Graph(string path, bool isDirected)
+        {
+            this.isDirected = isDirected;
+            readFile(path);
+        }
+
+         
 
         public void PrintGraph()
         {
@@ -40,11 +51,19 @@ namespace Algorithms.Exercise5
             
             while ((s = sr.ReadLine()) != null)
             {
-                string[] subs = s.Split(' ');               
-                AddEdge(int.Parse(subs[0]),int.Parse(subs[1]), int.Parse(subs[2]));  
+                string[] subs = s.Split(' ');
+                if(isDirected)
+                    AddEdge(int.Parse(subs[0]),int.Parse(subs[1]), int.Parse(subs[2]));
+                else 
+                {
+                    AddEdge(int.Parse(subs[0]), int.Parse(subs[1]), int.Parse(subs[2]));
+                    AddEdge(int.Parse(subs[1]), int.Parse(subs[0]), int.Parse(subs[2]));
+
+                }
             }
             sr.Close();
             AddNodes();
+            AddNeighbours();
         }
 
         private void AddNodes() 
@@ -56,7 +75,22 @@ namespace Algorithms.Exercise5
                 if (!nodes.Contains(item.Vertex2))
                     nodes.Add(item.Vertex2);
             }
-        } 
+        }
+
+        private void AddNeighbours() 
+        {
+
+            foreach(var n in nodes) 
+            {
+                Vertex v = new Vertex(n);
+                vertices.Add(v);
+
+                var sortedVertex = edges.Where(x => x.Vertex1 == n).Select(x => x.Vertex2);
+
+                foreach(var u in sortedVertex)
+                    v.AddNeighbourToVertex(u);
+            }       
+        }
 
         public void AddEdge(int vertex1, int vertex2, int weight) 
         {
@@ -74,7 +108,26 @@ namespace Algorithms.Exercise5
                 edges.Remove(edge);            
         }
     }
+    internal class Vertex
+    {
+        public readonly int number;
+        public List<int> neighbours = new List<int>();
 
+        public Vertex(int number) => this.number = number;
+
+        public void AddNeighbourToVertex(int u)
+        {
+            neighbours.Add(u); 
+        }
+
+        public void PrintNeighbours() 
+        {
+            Console.Write($"{number}: ");
+            foreach (int i in neighbours)
+                Console.Write($"{i} ");
+            Console.WriteLine();
+        }
+    }
  
 
     internal class Edge 

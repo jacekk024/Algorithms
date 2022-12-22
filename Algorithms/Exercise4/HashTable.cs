@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
@@ -7,83 +9,208 @@ using System.Threading.Tasks;
 
 namespace Algorithms.Exercise4
 {
-    public class KeyValye<Key,Value> 
+
+    internal class HashTable<T>
     {
-        public Key key { get; set; }
-        public Value value { get; set; }
+        public List<T>[] hash;         // tablica haszujaca
 
-        private List<KeyValye<Key,Value>> keys;
+        private const int prime = 7919;
+        private const int prime2 = 25229;
+        private const int prime3 = 50423;
 
-        public KeyValye(Key key, Value value) 
+        private int M;                  // poczatkowy rozmiar tablicy    
+        private int N;                  // całkowita liczba elementow
+
+        public double ratio;
+        double alfa = (Math.Sqrt(5) - 1) / 2;
+
+
+        public HashTable() 
         {
-            this.key = key;
-            this.value = value;
-        }
-    }
-
-    internal class HashTable<Key,Value,T>
-    {
-        private int M;
-
-        private KeyValye<Key, Value>[] hashTable;
-
-        public HashTable(int M)
-        {
-            this.M = M;
-            hashTable = new KeyValye<Key, Value>[M];  
+            M = 10;
+            N = 0;      
+            hash = new List<T>[M];
+            for (int i = 0; i < M; i++)
+                hash[i] = new List<T>();
         }
 
-
-        public int HashFunction(Value value) 
+        public void PrintHashTable()
         {
-                // funckja otrzymuje typ generyczny dla którego oblicza hash
 
-                // moze być string, tablica int, lista, klasa..
+            Console.WriteLine($"Elements in array: {N} / {M}");
 
-                return 1;          
-        }
-
-        int HashString(string input)
-        {
-            char[] ch;
-            ch = input.ToCharArray();
-
-            int i, sum;
-            for ( sum = 0, i = 0; i < input.Length; i++)
-                sum += ch[i];
-            return sum % M;
-        }
-
-        int HashIntiger(int[] input) 
-        {
-            int i, sum;
-            for (sum = 0, i = 0; i < input.Length; i++)
-                sum += input[i];
-            return sum % M;
+            for (int i = 0; i < hash.Length; i++)
+            {
+                Console.Write($"{i}: ");
+                foreach (T t in hash[i])
+                    Console.Write($"{t} ");
+                Console.WriteLine();
+            }         
         }
         
-
-        public void HashInsert(Key key, Value value) 
+        private int HashString(string val, int m)
         {
-            int ind = HashFunction(value);
-            hashTable[ind] = new KeyValye<Key,Value>(key, value);
+            byte[] byteArray = Encoding.UTF8.GetBytes(val);
+            ulong hashValue = 0;
+            ulong pow = 1;
+            ulong mod = (ulong)m;
 
+            for (int i = 0; i < val.Length; i++)
+            {
+                hashValue = (uint)(hashValue + byteArray[i] * pow);
+                pow *= prime3;
+            }
+
+            hashValue = (hashValue % mod);
+            return (int)hashValue;
         }
 
-        public Value HashSearch(Key key) 
+        //h(k) = floor (m * (k * c mod 1)) // Multiplication Method
+        private int HashInt(int val)
         {
-            //KeyValye<Key, Value> key1 = hashTable[HashFunction(value)];
 
-    
-            //    while (key1 != null)
-            //    {
-            //        if (key1.Equals(key))
-            //            return key1.value;
+            uint hashValue = (uint)Math.Floor(M * ((val * alfa) % 1));
 
-            //    }
-                     
-                throw new Exception($"{key} was not found");
-            
+            return (int)(hashValue % M);
+        }
+
+        public int HashDouble(double a)
+        {
+            int hashValue;
+
+            hashValue = (int)(a*19);
+
+            hashValue = HashInt(hashValue) % M;
+            return hashValue;
+        }
+
+        public void HashInsert(T[] value)
+        {           
+            for (int i = 0; i < value.Length; i++)
+                HashInsert(value[i]);
+        }
+
+
+        private bool CheckToResize() 
+        {
+            if ((ratio> 0.9 || ratio < 0.3) & N > 10)           
+                return true;  
+            else
+                return false;
+        }
+
+        private int Hash(T value, bool option)
+        {
+
+            Type type = typeof(T);
+            int ind;
+
+            if (type == typeof(int))
+            {
+                ind = HashInt(Convert.ToInt32(value));
+
+                if (option)
+                    hash[ind].Add(value);
+
+                if (hash[ind].Contains(value))
+                    return ind; 
+            }
+            if (type == typeof(double))
+            {
+
+                ind = HashDouble(Convert.ToDouble(value));
+
+                if (option)
+                    hash[ind].Add(value);
+
+                if (hash[ind].Contains(value))
+                    return ind;
+            }
+            if (type == typeof(string))
+            {
+                ind = HashString(value.ToString(), M);
+
+                if(option)
+                    hash[ind].Add(value);
+
+                if (hash[ind].Contains(value))
+                    return ind;
+            }
+            else
+            {
+                // szukanie obiektow
+            }
+            return -1;
+        }
+
+
+        private void ResizeTable() 
+        {
+            List<T>[] hashTemp = new List<T>[M];         // tablica haszujaca
+
+            for (int i = 0; i < M; i++)
+                hashTemp[i] = new List<T>(hash[i]);
+
+            if (ratio > 0.9) 
+            {
+                M *= 2;
+                hash = new List<T>[M];
+                for (int i = 0; i < M; i++)
+                    hash[i] = new List<T>();
+
+                for (int i = 0; i < hashTemp.Length; i++)
+                    for(int j = 0; j < hashTemp[i].Count; j++)
+                    {
+                        Hash(hashTemp[i][j], true);
+                    }
+            }
+            else if( ratio < 0.3) 
+            {
+                M /= 2;
+                hash = new List<T>[M];
+                for (int i = 0; i < M; i++)
+                    hash[i] = new List<T>();
+
+
+                for (int i = 0; i < hashTemp.Length; i++)
+                    for (int j = 0; j < hashTemp[i].Count; j++)
+                    {
+                        Hash(hashTemp[i][j], true);
+                    }
+            }
+        }
+
+        public void HashInsert(T value)
+        {
+            ratio = N / (double)M;
+
+            if (!CheckToResize())
+            {
+                N++;
+                Hash(value, true);
+            }
+            else 
+            {
+                ResizeTable();
+                N++;
+                Hash(value, true);
+            }
+        }
+
+        public void HashDelete(T value) 
+        {
+            N--;
+            int ind = HashSearch(value);
+
+            if (hash[ind].Contains(value)) 
+                hash[ind].Remove(value);
+        }
+
+        public int HashSearch(T value)
+        {
+            return Hash(value, false);
         }
     }
 }
+
+
