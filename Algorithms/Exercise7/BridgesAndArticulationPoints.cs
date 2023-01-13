@@ -68,7 +68,7 @@ namespace Algorithms.Exercise7
         {
             visited[u] = low[u] = ++count;
 
-            var vertices = graph.vertices.Find(x => x.number-1 == u).neighbours;
+            var vertices = graph.vertices.First(x => x.number-1 == u).neighbours;
 
             foreach (var v in vertices) 
             {
@@ -94,7 +94,7 @@ namespace Algorithms.Exercise7
 
             visited[u] = low[u] = ++count;
 
-            var vertices = graph.vertices.Find(x => x.number - 1 == u).neighbours;
+            var vertices = graph.vertices.First(x => x.number - 1 == u).neighbours;
 
             foreach (var v in vertices)
             {
