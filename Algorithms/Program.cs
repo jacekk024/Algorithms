@@ -5,6 +5,8 @@ using Algorithms.Exercise4;
 using Algorithms.Exercise5;
 using Algorithms.Exercise6;
 using Algorithms.Exercise7;
+using Algorithms.Exercise8;
+using Algorithms.Exercise9;
 using System;
 
 
@@ -13,9 +15,6 @@ namespace Algorithms
 {
     class Test 
     {
-        static bool menuFlag = true;
-
-
         static void Main(string[] args)
         {
 
@@ -217,7 +216,7 @@ namespace Algorithms
             }
 
             //Bridges and articulation points  
-            if (true)
+            if (false)
             {
                 Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\bridges.txt",false);
                 //graph.PrintGraph();
@@ -240,7 +239,44 @@ namespace Algorithms
 
                 BridgesAndArticulationPoints alg2 = new BridgesAndArticulationPoints(graph2);
                 alg2.FindArticulationPoints();
+            }
+            //2CNF
+            if (false) 
+            {
+                Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\2CNF3.txt");
+                graph.PrintLogicalFormula();
+                graph.PrintGraph();
 
+                Console.WriteLine("Vertex neighbours list: ");
+                foreach (var node in graph.vertices)
+                    node.PrintNeighbours();
+
+                Console.WriteLine("2cnf Vertieces neighbours list: ");
+                foreach (var node in graph._2cnfVertieces)
+                    node.PrintNeighbours();
+
+                TwoCNF alg = new (graph);
+
+                if (alg.Algorithm2CNF())
+                    Console.WriteLine("The given expression is satisfiable.");
+                else
+                    Console.WriteLine("The given expression is unsatisfiable.");
+
+                alg.Print2CNF();
+            }
+            //Maximum Flow Problem
+            if (true) 
+            {
+                Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\max_flow.txt",true);
+                Graph rGraph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\max_flow.txt", false);
+
+
+                MaximumFlowProblem alg = new MaximumFlowProblem(graph, rGraph);
+
+                graph.PrintGraph();
+
+                Console.WriteLine("The maximum possible flow is "
+                          + alg.fordFulkerson(0, 5));
 
             }
         }

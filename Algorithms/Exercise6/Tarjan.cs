@@ -92,7 +92,7 @@ namespace Algorithms.Exercise6
             ancestor[u] = u; // 
 
             //sasiedzi wierzcholka u
-            var vertices = graph.vertices.Find(x => x.number == u+1).neighbours;
+            var vertices = graph.vertices.First(x => x.number == u+1).neighbours;
 
             //przechodzimy po sasiadach  wierzcholka u
             foreach (var v in vertices)
