@@ -25,32 +25,29 @@ namespace Algorithms.Exercise9
         {
             bool[] visited = new bool[N];
 
-            List<int> que = new List<int>();
-            que.Add(s);
+            Stack<int> que = new Stack<int>();
+            que.Push(s);
             visited[s] = true;
             augmentingPath[s] = -1;
 
-
             while (que.Count != 0)
             {
-                int u = que[0];
-                que.RemoveAt(0);
-                var vertices = graph.vertices.First(x => x.number == u).neighbours;
+                int u = que.Peek();
+                que.Pop();
+                var vertices = rGraph.vertices.First(x => x.number == u).neighbours;
 
                 foreach (var v in vertices)
                 {
-                    var edgeCost = graph.edges.First(x => x.Vertex1 == u && x.Vertex2 == v).Weight;
-
+                    var edgeCost = rGraph.edges.First(x => x.Vertex1 == u && x.Vertex2 == v).Weight;
 
                     if (visited[v] == false && edgeCost > 0)
                     {
-
                         if (v == t)
                         {
                             augmentingPath[v] = u;
                             return true;
                         }
-                        que.Add(v);
+                        que.Push(v);
                         augmentingPath[v] = u;
                         visited[v] = true;
                     }
@@ -58,7 +55,6 @@ namespace Algorithms.Exercise9
             }
             return false;
         }
-
 
         public int fordFulkerson(int s,int t) 
         {
@@ -91,6 +87,7 @@ namespace Algorithms.Exercise9
                 // Add path flow to overall flow
                 maxFlow += cf;
             }
+
             return maxFlow; 
         }
     }

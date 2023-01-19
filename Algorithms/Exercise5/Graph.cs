@@ -13,7 +13,8 @@ namespace Algorithms.Exercise5
         public List<Edge> _2cnfEdges = new List<Edge>();             // lista krawedzi
         public List<Vertex> _2cnfVertieces = new List<Vertex>();     // lista wierzcholkow klasa
         public List<int> _2cnfNodes = new List<int>();               // lista wierzcholkow lista
-
+        public StringBuilder formula = new StringBuilder();
+        public List<Tuple<int, int>> logicFormula = new List<Tuple<int, int>>(); // lista alternatyw dla wyrazenia 2cnf
 
 
         public List<Edge> edges = new List<Edge>();     //lista krawedzi
@@ -22,13 +23,20 @@ namespace Algorithms.Exercise5
         public List<Vertex> vertices = new List<Vertex>();  //lista  wierzcholka tarjan
 
         public bool isDirected = true;
-        StringBuilder formula = new StringBuilder();
 
         public int n;
+        public int mode = 1;
 
         public Graph(string path, bool isDirected)
         {
             this.isDirected = isDirected;
+            readFile(path);
+        }
+
+        public Graph(string path, bool isDirected,int mode)
+        {
+            this.isDirected = isDirected;
+            this.mode = mode;
             readFile(path);
         }
 
@@ -37,17 +45,14 @@ namespace Algorithms.Exercise5
             ReadFile2CNF(path);
         }
 
-        public Graph() { }
-
-
         public void TransposeGraph()
         {
 
-           List<Vertex> verticesTranspose = new List<Vertex>();
-           List<int> nodesTranspose = new List<int>();
+            List<Vertex> verticesTranspose = new List<Vertex>();
+            List<int> nodesTranspose = new List<int>();
             foreach (var vertex in vertices)
             {
-                foreach(var neighbour in vertex.neighbours)
+                foreach (var neighbour in vertex.neighbours)
                 {
                     Vertex v = new Vertex(neighbour);
 
@@ -71,11 +76,11 @@ namespace Algorithms.Exercise5
 
         public void PrintGraph()
         {
-            foreach (var edge in edges) 
+            foreach (var edge in edges)
             {
                 Console.WriteLine($"{edge.Vertex1} -> {edge.Vertex2} : {edge.Weight}");
             }
-            
+
             Console.WriteLine();
 
             Console.WriteLine($"Nodes number: {nodes.Count}");
@@ -88,15 +93,13 @@ namespace Algorithms.Exercise5
             }
         }
 
-        public void PrintLogicalFormula() 
+        public void PrintLogicalFormula()
         {
             int len = formula.Length;
-            formula.Replace("&&", "",len-3,2);
+            formula.Replace("&&", "", len - 3, 2);
             Console.WriteLine("Logical Formula:");
-            Console.WriteLine(formula.ToString()+"\n");
-        
+            Console.WriteLine(formula.ToString() + "\n");
         }
-
 
         private void ReadFile2CNF(string path)
         {
@@ -111,9 +114,10 @@ namespace Algorithms.Exercise5
                 int a = int.Parse(subs[0]);
                 int b = int.Parse(subs[1]);
 
+                logicFormula.Add(new Tuple<int, int>(a, b));
                 formula.Append($"({a} || {b}) && ");
-                AddEdge2CNF(-a , b, 0);
-                AddEdge2CNF(-b , a, 0);
+                AddEdge2CNF(-a, b, 0);
+                AddEdge2CNF(-b, a, 0);
 
                 // x => x     a -x => -x+n = n-(-x)
                 if (a > 0 && b > 0)
@@ -128,8 +132,8 @@ namespace Algorithms.Exercise5
                 }
                 else if (a < 0 && b > 0)
                 {
-                    AddEdge(-a,  b, 0);
-                    AddEdge(b , n - a, 0);
+                    AddEdge(-a, b, 0);
+                    AddEdge(b, n - a, 0);
                 }
                 else
                 {
@@ -150,27 +154,33 @@ namespace Algorithms.Exercise5
         {
             string s;
             StreamReader sr = File.OpenText(path);
-            
+
             while ((s = sr.ReadLine()) != null)
             {
                 string[] subs = s.Split(' ');
-                if(isDirected)
-                    AddEdge(int.Parse(subs[0]),int.Parse(subs[1]), int.Parse(subs[2]));
-                else 
+                if (isDirected)
+                    AddEdge(int.Parse(subs[0]), int.Parse(subs[1]), int.Parse(subs[2]));
+                else
                 {
                     AddEdge(int.Parse(subs[0]), int.Parse(subs[1]), int.Parse(subs[2]));
-                    AddEdge(int.Parse(subs[1]), int.Parse(subs[0]), int.Parse(subs[2]));
+                    if(mode == 1)
+                        AddEdge(int.Parse(subs[1]), int.Parse(subs[0]), int.Parse(subs[2]));
+                    else if(mode == 2)
+                        AddEdge(int.Parse(subs[1]), int.Parse(subs[0]),0);
+
 
                 }
+
+
             }
             sr.Close();
             AddNodes();
             AddNeighbours();
         }
 
-        private void AddNodes() 
+        private void AddNodes()
         {
-            foreach (var item in edges) 
+            foreach (var item in edges)
             {
                 if (!nodes.Contains(item.Vertex1))
                     nodes.Add(item.Vertex1);
@@ -179,28 +189,28 @@ namespace Algorithms.Exercise5
             }
         }
 
-        private void AddNeighbours() 
+        private void AddNeighbours()
         {
 
-            foreach(var n in nodes) 
+            foreach (var n in nodes)
             {
                 Vertex v = new Vertex(n);
                 vertices.Add(v);
 
                 var sortedVertex = edges.Where(x => x.Vertex1 == n).Select(x => x.Vertex2);
 
-                foreach (var u in sortedVertex) 
+                foreach (var u in sortedVertex)
                     v.AddNeighbourToVertex(u);
 
             }
         }
 
-        public void AddEdge(int vertex1, int vertex2, int weight) 
+        public void AddEdge(int vertex1, int vertex2, int weight)
         {
             Edge edge = new Edge(vertex1, vertex2, weight);
 
-            if (!edges.Contains(edge))          
-                edges.Add(edge);           
+            if (!edges.Contains(edge))
+                edges.Add(edge);
         }
 
 
@@ -217,7 +227,6 @@ namespace Algorithms.Exercise5
 
         private void AddNeighbours2CNF()
         {
-
             foreach (var n in _2cnfNodes)
             {
                 Vertex v = new Vertex(n);
@@ -232,7 +241,6 @@ namespace Algorithms.Exercise5
             }
         }
 
-
         public void AddEdge2CNF(int vertex1, int vertex2, int weight)
         {
             Edge edge = new Edge(vertex1, vertex2, weight);
@@ -243,18 +251,18 @@ namespace Algorithms.Exercise5
             }
         }
 
-
-
-        public void RemoveEdge(int vertex1, int vertex2) 
+        public void RemoveEdge(int vertex1, int vertex2)
         {
             var edge = edges.Single(x => x.Vertex1 == vertex1 && x.Vertex2 == vertex2);
 
-            if (edges.Contains(edge))          
-                edges.Remove(edge);            
+            if (edges.Contains(edge))
+                edges.Remove(edge);
         }
     }
     internal class Vertex
     {
+        public bool state;
+        public int scc;
         public int number;
         public List<int> neighbours = new List<int>();
 
@@ -262,10 +270,10 @@ namespace Algorithms.Exercise5
 
         public void AddNeighbourToVertex(int u)
         {
-            neighbours.Add(u); 
+            neighbours.Add(u);
         }
 
-        public void PrintNeighbours() 
+        public void PrintNeighbours()
         {
             Console.Write($"{number}: ");
             foreach (int i in neighbours)
@@ -273,27 +281,20 @@ namespace Algorithms.Exercise5
             Console.WriteLine();
         }
     }
- 
 
     internal class Edge 
     {
         public int Vertex1;
         public int Vertex2;
         public int Weight;
-        public int F;
+        public int Flow;
 
         public Edge(int vertex1, int vertex2, int weight) 
         {
             Vertex2 = vertex2;
             Vertex1 = vertex1;
             Weight = weight;
-        }
-
-        public Edge(int vertex1, int vertex2, int weight,int f)
-        {
-            Vertex2 = vertex2;
-            Vertex1 = vertex1;
-            Weight = weight;           
+            Flow = 0;
         }
     }
 }
