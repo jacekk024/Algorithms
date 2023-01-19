@@ -1,4 +1,5 @@
 ﻿using Algorithms.Exercise1;
+using Algorithms.Exercise10;
 using Algorithms.Exercise2;
 using Algorithms.Exercise3;
 using Algorithms.Exercise4;
@@ -183,8 +184,6 @@ namespace Algorithms
                 //var tuple9 = new Tuple<int, int>(9, 4);//
                 //var tuple10 = new Tuple<int, int>(7, 9);
 
-
-
                 //tarjan2
                 var tuple1 = new Tuple<int, int>(1, 2);
                 var tuple2 = new Tuple<int, int>(3, 4);
@@ -195,7 +194,6 @@ namespace Algorithms
                 var tuple5 = new Tuple<int, int>(2, 8);
 
                 List<Tuple<int, int>> list = new List<Tuple<int, int>>();
-
 
                 list.Add(tuple1);
                 list.Add(tuple2);
@@ -241,9 +239,9 @@ namespace Algorithms
                 alg2.FindArticulationPoints();
             }
             //2CNF
-            if (false) 
+            if (false)  
             {
-                Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\2CNF3.txt");
+                Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\2CNF2.txt");
                 graph.PrintLogicalFormula();
                 graph.PrintGraph();
 
@@ -258,26 +256,56 @@ namespace Algorithms
                 TwoCNF alg = new (graph);
 
                 if (alg.Algorithm2CNF())
+                {
                     Console.WriteLine("The given expression is satisfiable.");
+                    alg.Print2CNF();
+                    alg.CheckLogicFormula();
+                }
                 else
                     Console.WriteLine("The given expression is unsatisfiable.");
-
-                alg.Print2CNF();
             }
             //Maximum Flow Problem
-            if (true) 
+            if (false) 
             {
                 Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\max_flow.txt",true);
-                Graph rGraph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\max_flow.txt", false);
+                Graph rGraph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\max_flow.txt", false,2);
 
 
                 MaximumFlowProblem alg = new MaximumFlowProblem(graph, rGraph);
 
-                graph.PrintGraph();
+                rGraph.PrintGraph();
+
+                Console.WriteLine("Vertieces neighbours list: ");
+                foreach (var node in graph.vertices)
+                    node.PrintNeighbours();
 
                 Console.WriteLine("The maximum possible flow is "
                           + alg.fordFulkerson(0, 5));
 
+            }
+
+            //Pre Flow Problem
+            if (false)
+            {
+               // Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\max_flow.txt", true);
+                Graph rGraph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\max_flow.txt", false, 2);
+
+
+                PreFlow alg = new PreFlow(rGraph);
+
+                rGraph.PrintGraph();
+
+                alg.GenericPreFlow(0, 5);
+            }
+
+            //KMP algorithm 
+            if (true)
+            {
+                string txt = "bacbababaabcbab";
+                string pattern = "ababababca"; 
+
+                KMP alg = new KMP();
+                alg.MatcherKMP(pattern, txt);
             }
         }
     }
