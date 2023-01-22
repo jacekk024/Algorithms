@@ -253,7 +253,7 @@ namespace Algorithms
                 foreach (var node in graph._2cnfVertieces)
                     node.PrintNeighbours();
 
-                TwoCNF alg = new (graph);
+                TwoCNF alg = new(graph);
 
                 if (alg.Algorithm2CNF())
                 {
@@ -267,8 +267,8 @@ namespace Algorithms
             //Maximum Flow Problem
             if (false) 
             {
-                Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\max_flow.txt",true);
-                Graph rGraph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\max_flow.txt", false,2);
+                Graph graph = new(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\max_flow.txt",true);
+                Graph rGraph = new(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\max_flow.txt", false,2);
 
 
                 MaximumFlowProblem alg = new MaximumFlowProblem(graph, rGraph);
@@ -288,7 +288,7 @@ namespace Algorithms
             if (false)
             {
                // Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\max_flow.txt", true);
-                Graph rGraph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\max_flow.txt", false, 2);
+                Graph rGraph = new(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\max_flow.txt", false, 2);
 
 
                 PreFlow alg = new PreFlow(rGraph);
@@ -301,11 +301,19 @@ namespace Algorithms
             //KMP algorithm 
             if (true)
             {
-                string txt = "bacbababaabcbab";
-                string pattern = "ababababca"; 
+                string txt = "ABABDABACDABABCABAB";
+                string pat = "ABABCABAB";
 
-                KMP alg = new KMP();
-                alg.MatcherKMP(pattern, txt);
+                string txt2 = "ababcabababc";
+                string pat2 = "abc";
+
+                string txt3 = "Ala ma kota. Ala kota ma. Ma kota Ala. Każda Ala chce kota.";
+                string pat3 = "Ala";
+
+                KMP alg = new();
+                alg.MatcherKMP(pat, txt);
+                alg.MatcherKMP(pat2, txt2);
+                alg.MatcherKMP(pat3, txt3);
             }
         }
     }

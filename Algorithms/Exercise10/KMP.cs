@@ -13,14 +13,13 @@ namespace Algorithms.Exercise10
             int M = P.Length;
             int[] pi = new int[M];
             pi[0] = 0;
-            pi[1] = 0;
 
             int k = 0;
-            for (int q = 2 ;q < M; q++ )
+            for (int q = 1 ;q < M; q++ )
             {
-                while (k > 0 && P[k+1] != P[q])
+                while (k > 0 && P[k] != P[q])
                     k = pi[k];
-                if (P[k+1] == P[q]) 
+                if (P[k] == P[q]) 
                     k++;
                
                 pi[q] = k;
@@ -34,17 +33,18 @@ namespace Algorithms.Exercise10
             int M = P.Length;
             int[] pi = ComputePrefix(P);
             int q = 0;
-            for (int i = 1; i < N; i++)
+            Console.WriteLine($"Text: {T}\nPattern: {P}");
+            for (int i = 0; i < N; i++)
             {
-                while (q > 0 && (P[q +1] != T[i]))
+                while (q > 0 && (P[q] != T[i]))
                     q = pi[q];
-                if (P[q + 1] == T[i])
+                if (P[q] == T[i])
                     q++;
 
-                 if (q == M - 1)
-                 {
-                        Console.WriteLine("Pattern found: " + (q - M)+1); // Pattern found on q-m;
-                        q = pi[q];
+                 if (q == M )
+                 {      
+                        Console.WriteLine($"Pattern found at index: {i - q + 1}"); // Pattern found on q-m;
+                        q = pi[q - 1];
                  }
             }
         }
