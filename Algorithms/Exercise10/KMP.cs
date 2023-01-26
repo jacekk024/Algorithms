@@ -33,19 +33,18 @@ namespace Algorithms.Exercise10
             int M = P.Length;
             int[] pi = ComputePrefix(P);
             int q = 0;
-            Console.WriteLine($"Text: {T}\nPattern: {P}");
+            Console.WriteLine($"Text:{T}\nPattern: {P}");
             for (int i = 0; i < N; i++)
             {
                 while (q > 0 && (P[q] != T[i]))
-                    q = pi[q];
+                    q = pi[q - 1];
                 if (P[q] == T[i])
                     q++;
-
-                 if (q == M )
-                 {      
-                        Console.WriteLine($"Pattern found at index: {i - q + 1}"); // Pattern found on q-m;
-                        q = pi[q - 1];
-                 }
+                if (q == M)
+                {      
+                    Console.WriteLine($"Pattern found at index: {i - q + 1}"); // Pattern found on q-m;
+                    q = pi[q - 1];
+                }
             }
         }
     }
