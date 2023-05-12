@@ -30,7 +30,6 @@ namespace Algorithms.Exercise8
             n = graph.n;
         }
 
-
         void DFS(int u,int k,bool flag)
         {
             var vertices = graph.vertices.First(x => x.number == u).neighbours;
@@ -61,7 +60,6 @@ namespace Algorithms.Exercise8
                 else
                     Console.WriteLine(vertList[i - 1].number + ":" + scc[i]);
         }
-
 
         public void CheckLogicFormula() 
         {
@@ -99,7 +97,6 @@ namespace Algorithms.Exercise8
                     Console.WriteLine($"{vert.number}:{vert.state} scc:{vert.scc}");
             }
 
-
             bool result = true;
             bool val1, val2;
             foreach (var form in graphCopy.logicFormula)
@@ -120,7 +117,6 @@ namespace Algorithms.Exercise8
 
             graph.PrintLogicalFormula();
             Console.WriteLine("result is " + result);
-
         }
 
         public bool Algorithm2CNF() 

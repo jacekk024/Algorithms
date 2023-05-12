@@ -35,8 +35,8 @@ namespace Algorithms
             if (false)
             {
                 Combination<int> comb = new Combination<int>();
-                int[] data = { 1, 2, 3, 4, 5 };
-                comb.SetCombinationValues(data, 3);
+                int[] data = { 1, 2, 3};
+                comb.SetCombinationValues(data, 2);
             }
 
             //Variation
@@ -241,7 +241,7 @@ namespace Algorithms
             //2CNF
             if (false)  
             {
-                Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\2CNF2.txt");
+                Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\2CNF3.txt");
                 graph.PrintLogicalFormula();
                 graph.PrintGraph();
 
@@ -284,12 +284,11 @@ namespace Algorithms
 
             }
 
-            //Pre Flow Problem
-            if (false)
+            //PreFlow Problem
+            if (true)
             {
                // Graph graph = new Graph(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\max_flow.txt", true);
-                Graph rGraph = new(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\max_flow.txt", false, 2);
-
+                Graph rGraph = new(@"D:\dokumenty\Studia Infa Stosowana\semestr 2\ALGOR2\Algorithms\Data Files\max_flow.txt", false, 2);
 
                 PreFlow alg = new PreFlow(rGraph);
 
@@ -299,7 +298,7 @@ namespace Algorithms
             }
 
             //KMP algorithm 
-            if (true)
+            if (false)
             {
                 string txt = "ABABDABACDABABCABAB";
                 string pat = "ABABCABAB";

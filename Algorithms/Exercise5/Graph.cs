@@ -16,11 +16,10 @@ namespace Algorithms.Exercise5
         public StringBuilder formula = new StringBuilder();
         public List<Tuple<int, int>> logicFormula = new List<Tuple<int, int>>(); // lista alternatyw dla wyrazenia 2cnf
 
+        public List<Edge> edges = new List<Edge>();                 //lista krawedzi
+        public List<int> nodes = new List<int>();                   //lista wierzcholkow
 
-        public List<Edge> edges = new List<Edge>();     //lista krawedzi
-        public List<int> nodes = new List<int>();       //lista wierzcholkow
-
-        public List<Vertex> vertices = new List<Vertex>();  //lista  wierzcholka tarjan
+        public List<Vertex> vertices = new List<Vertex>();          //lista  wierzcholka tarjan
 
         public bool isDirected = true;
 
@@ -170,8 +169,6 @@ namespace Algorithms.Exercise5
 
 
                 }
-
-
             }
             sr.Close();
             AddNodes();
