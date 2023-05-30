@@ -21,13 +21,15 @@ Project contains examples of different types of algorithms used in computer scie
 * .Net Core
 
 ## Description
-[1] Permutation, Combination, Variation
-
-[2] N-Queen and Knight Tour 
-
-
-[11]
-
-
+1. Permutation, Combination, Variation
+2. N-Queen,Knight tour 
+3. Heuristic algorithm for N-Queen, Warnsdorff algorithm for Knight tour
+4. Hash Table 
+5. Union Find, Graph class
+6. Tarjan
+7. Bridges and Articulation Points
+8. 2CNF
+9. Maximum Flow Problem and Preflow
+10. KMP algorithm
 ## Resources
-* 
+* [Algorithm`s Lecture Notes](http://fizyka.umk.pl/~milosz/AlgIILab/Slajdy-NJ-wyk.pdf)
